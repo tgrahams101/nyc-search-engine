@@ -1,7 +1,25 @@
 <h2>List of Users</h2>
+<h4>Add New Users</h4>
+
+<div *ngIf="newUser">
+  <input type="text" placeholder="first name" [(ngModel)]="newUser.firstName"><br />
+  <input type="text" placeholder="last name" [(ngModel)]="newUser.lastName"><br />
+  <input type="text" placeholder="username" [(ngModel)]="newUser.userName"><br />
+  <input type="text" placeholder="email" [(ngModel)]="newUser.emailName"><br />
+  <input type="text" placeholder="password" [(ngModel)]="newUser.password"><br />
+ </div>
+
+<p>New User to send {{newUser| json}}</p>
+<button (click)="addUser()">Add User</button>
 
 <div *ngIf="users"> 
   <div *ngFor="let user of users"> 
     <h3>{{user.firstName}}</h3>
+    <h3>{{user.lastName}}</h3>
+    <h3>{{user.userName}}</h3>
+    <h3>{{user.email}}</h3>
+    <button (click)="editUser(user.id, user, this)"> Edit </button> 
+    <button (click)="deleteUser(user.id, user, this)">Delete </button>
   </div>
+
 </div>
