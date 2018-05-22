@@ -1,4 +1,4 @@
-<h2>List of Users</h2>
+
 
 <div *ngIf="newUser" style="text-align: center">
   <h4>Add a new User!</h4>
@@ -7,10 +7,10 @@
   <input type="text" placeholder="username" [(ngModel)]="newUser.userName"><br />
   <input type="text" placeholder="email" [(ngModel)]="newUser.email"><br />
   <input type="text" placeholder="password" [(ngModel)]="newUser.password"><br />
+  <button (click)="addUser()">Add User</button>
  </div>
 
-<p>New User to send {{newUser| json}}</p>
-<button (click)="addUser()">Add User</button>
+<!-- <p>New User to send {{newUser| json}}</p> -->
 
 <div *ngIf="users" class="user_container"> 
   <div *ngFor="let user of users" class="user"> 
