@@ -1,5 +1,7 @@
+import { RouterModule } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
+import { SummaryResolver } from '@angular/compiler';
 
 @Component({
   selector: 'app-users',
@@ -24,6 +26,10 @@ export class UsersComponent implements OnInit {
       .toPromise()
       .then( (response) => {
         this.users = response.json();
+        this.users.map( (element) => {
+          element.showEditForm = false;
+          return element;
+        });
         console.log('ALL USERS', this.users);
       });
   }
@@ -35,15 +41,34 @@ export class UsersComponent implements OnInit {
       console.log(response.json());
       this.users.push(response.json());
       console.log(this.users);
+      this.newUser = {};
     })
     .catch( (error) => {
       console.log(error);
     });
   }
 
-  editUser(id, thisBinding) {
-    console.log('ID', id);
-    console.log('THIS BINDING', thisBinding);
+  editUser(userToEdit, userId) {
+    console.log('USER TO EDIT', userToEdit);
+    console.log('USER ID TO EDIT', userId);
+    const userToSend = {...userToEdit};
+    delete userToSend.showEditForm;
+    console.log('USER TO SEND FOR EDIT,', userToSend);
+    this.http.patch('/api/users/' + userId, userToEdit)
+    .toPromise()
+    .then( (response) => {
+      console.log(response);
+      const index = this.users.indexOf(userToEdit);
+      this.users[index] = response.json();
+      userToEdit.showEditForm = false;
+    })
+    .catch( (error) => {
+      console.log(error);
+    });
+  }
+
+  showEditDiv(user) {
+    user.showEditForm = !user.showEditForm;
   }
 
   deleteUser(id, ...args) {

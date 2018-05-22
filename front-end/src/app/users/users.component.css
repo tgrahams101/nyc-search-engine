@@ -1,0 +1,12 @@
+/* .user_container {
+    display: grid;
+    grid-template-columns: repeat(2, 50px 1fr) 100px;  
+} */
+
+.user {
+    display: inline-block;
+    width: 200px;
+    border: 1px black solid;
+    margin: 20px;
+    padding: 5%;
+}
